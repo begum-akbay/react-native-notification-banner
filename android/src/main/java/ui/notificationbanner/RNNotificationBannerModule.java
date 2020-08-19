@@ -13,6 +13,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.TextView;
+
 import java.lang.reflect.Method;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -21,6 +23,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.views.text.ReactFontManager;
+import com.tapadoo.alerter.Alert;
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
 
@@ -83,13 +86,6 @@ public class RNNotificationBannerModule extends ReactContextBaseJavaModule {
       }
     }
 
-    if (titleColor != null && titleColor.length() > 0) {
-//      config.setTextColor(Color.parseColor(titleColor));
-    }
-    if (titleSize != 0) {
-//      config.setTextSize(titleSize);
-    }
-
 
     if (tintColorValue != null && tintColorValue.length() > 0) {
       tintColor = Color.parseColor(tintColorValue);
@@ -98,7 +94,6 @@ public class RNNotificationBannerModule extends ReactContextBaseJavaModule {
     Alerter alerter = Alerter.create(getCurrentActivity());
       alerter = alerter.setTitle(title);
       alerter = alerter.setText(subTitle);
-
       if (iconDrawable != null && enableProgress == false) {
         alerter = alerter.setIcon(iconDrawable);
       } else {
@@ -146,7 +141,18 @@ public class RNNotificationBannerModule extends ReactContextBaseJavaModule {
         alerter.setDuration(duration);
       }
 
-      alerter.show();
+      Alert shownAlert = alerter.show();
+
+      if(shownAlert == null){
+        return;
+      }
+
+      if (titleColor != null && titleColor.matches("#[0-9]+") && titleColor.length() > 3) {
+        shownAlert.getTitle().setTextColor(Color.parseColor(titleColor));
+      }
+      if(subTitleColor != null && subTitleColor.matches("#[0-9]+") && subTitleColor.length() > 3){
+        shownAlert.getText().setTextColor(Color.parseColor(subTitleColor));
+      }
   }
 
   @ReactMethod
