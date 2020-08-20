@@ -147,10 +147,10 @@ public class RNNotificationBannerModule extends ReactContextBaseJavaModule {
         return;
       }
 
-      if (titleColor != null && titleColor.matches("#[0-9]+") && titleColor.length() > 3) {
+      if (titleColor != null && titleColor.matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$") && titleColor.length() > 3) {
         shownAlert.getTitle().setTextColor(Color.parseColor(titleColor));
       }
-      if(subTitleColor != null && subTitleColor.matches("#[0-9]+") && subTitleColor.length() > 3){
+      if(subTitleColor != null && subTitleColor.matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$") && subTitleColor.length() > 3){
         shownAlert.getText().setTextColor(Color.parseColor(subTitleColor));
       }
   }
