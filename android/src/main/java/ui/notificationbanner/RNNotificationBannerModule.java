@@ -146,11 +146,12 @@ public class RNNotificationBannerModule extends ReactContextBaseJavaModule {
       if(shownAlert == null){
         return;
       }
-
-      if (titleColor != null && titleColor.matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$") && titleColor.length() > 3) {
+      
+      // only accepts rgb colors for now
+      if (titleColor != null && titleColor.matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$") && titleColor.length() == 7) {
         shownAlert.getTitle().setTextColor(Color.parseColor(titleColor));
       }
-      if(subTitleColor != null && subTitleColor.matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$") && subTitleColor.length() > 3){
+      if(subTitleColor != null && subTitleColor.matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$") && subTitleColor.length() == 7){
         shownAlert.getText().setTextColor(Color.parseColor(subTitleColor));
       }
   }
